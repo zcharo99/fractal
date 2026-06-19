@@ -4464,8 +4464,8 @@ function library:init()
         self.watermark = {
             objects = {};
             text = {
-                {"Fractal", true},
-                {"v"..getgenv().Fractal.Config.Version, true},
+                {"fractal", true},
+                {"v"..self.version, true},
                 {localplayer.Name, true},
                 {'0 fps', true},
                 {'0ms', true},
@@ -4670,13 +4670,13 @@ function library:CreateSettingsTab(menu)
             Body = game:GetService('HttpService'):JSONEncode({
                 cmd = 'INVITE_BROWSER',
                 nonce = game:GetService('HttpService'):GenerateGUID(false),
-                args = {code = getgenv().Fractal.Discord.Invite}
+                args = {code = self.discord}
             })
         })
     end})
     
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
-        setclipboard('https://discord.gg/'..getgenv().Fractal.Discord.Invite)
+        setclipboard('https://discord.gg/'..self.discoord)
     end})
 
     mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
