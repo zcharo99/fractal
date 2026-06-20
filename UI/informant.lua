@@ -4465,7 +4465,7 @@ function library:init()
             objects = {};
             text = {
                 {"fractal", true},
-                {"v"..self.version, true},
+                {"v"..shared.fractal.version, true},
                 {localplayer.Name, true},
                 {'0 fps', true},
                 {'0ms', true},
@@ -4670,13 +4670,13 @@ function library:CreateSettingsTab(menu)
             Body = game:GetService('HttpService'):JSONEncode({
                 cmd = 'INVITE_BROWSER',
                 nonce = game:GetService('HttpService'):GenerateGUID(false),
-                args = {code = self.discord}
+                args = {code = shared.fractal.discord}
             })
         })
     end})
     
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
-        setclipboard('https://discord.gg/'..self.discoord)
+        setclipboard('https://discord.gg/'..shared.fractal.discord)
     end})
 
     mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
