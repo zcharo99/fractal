@@ -509,14 +509,34 @@ end
 library.utility = utility
 
 function library:Unload()
-    library.unloaded:Fire();
-    for _,c in next, self.connections do
-        c:Disconnect()
+    self:SetOpen(false)
+
+    game:GetService("ContextActionService"):UnbindAction("FreezeMovement")
+
+    self.unloaded:Fire()
+
+    for _, c in next, self.connections do
+        pcall(function()
+            c:Disconnect()
+        end)
     end
+
     for obj in next, self.drawings do
-        obj:Remove()
+        pcall(function()
+            obj:Remove()
+        end)
     end
+
+    table.clear(self.connections)
     table.clear(self.drawings)
+
+    if screenGui then
+        pcall(function()
+            screenGui.Enabled = false
+            screenGui:Destroy()
+        end)
+    end
+
     getgenv().library = nil
 end
 
